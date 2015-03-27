@@ -1,0 +1,26 @@
+{
+  "name": "PlentyCode-Splash",
+  "version": "2.0.1",
+  "description": "Splash page for plentycode.com site",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "gulp": "^3.8.11"
+  },
+  "devDependencies": {
+    "gulp-bower": "0.0.10",
+    "gulp-concat": "^2.5.2",
+    "gulp-uglify": "^1.1.0"
+  },
+  "scripts": {},
+  "author": "Carlos I Mercado",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/civanm/PlentyCode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/civanm/PlentyCode/issues"
+  },
+  "homepage": "https://github.com/civanm/PlentyCode"
+}

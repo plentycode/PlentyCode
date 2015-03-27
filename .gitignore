@@ -1,0 +1,26 @@
+/nbproject/private/
+
+##########################
+# node modules and dependencies
+#########################
+node_modules/
+npm-debug.log
+
+##########################
+# bower dependencies
+#########################
+bower_components/
+.bowerrc
+
+##########################
+# bower vendor libraries
+#########################
+vendor/
+
+##########################
+# manual vendor libraries should be added
+#########################
+js/vendor
+js/libs/
+
+#########
