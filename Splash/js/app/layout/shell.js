@@ -1,9 +1,7 @@
-require([
-    'angular'
-], function (angular) {
+(function () {
     angular
-            .module('app.layout')
-            .controller('Shell', Shell);
+        .module('app.layout')
+        .controller('Shell', Shell);
 
     Shell.$inject = ['$timeout'];
 
@@ -11,7 +9,6 @@ require([
         var vm = this;
         $timeout(function () {
             vm.message = 'Hey there!!';
-        }, 3000);
-
+        }, 3000); 
     }
-});
+}());

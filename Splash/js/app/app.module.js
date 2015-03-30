@@ -1,17 +1,13 @@
-require([
-    'angular',
-    'angular-route',
-    //'app/router/router.module',
-    'app/layout/layout.module',
-    'app/widgets/widgets.module',
-    'app/layout/shell',
-    'app/widgets/pcLogo'
+(function () {
+    'use strict';
 
+    //requires the modules
+    require('./layout/layout.module');
+    require('./widgets/widgets.module');
 
-], function (angular) {
     //adds the applications modules
     angular.module('app', [
         'app.layout',
         'app.widgets'
     ]);
-});
+}());

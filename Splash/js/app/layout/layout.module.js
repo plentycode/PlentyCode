@@ -1,8 +1,8 @@
-require([
-    'angular',
-     'app/layout/shell'  
-], function (angular) {
+(function () {
     'use strict';
 
     angular.module('app.layout', []);
-});
+
+    require('./shell');
+
+}());

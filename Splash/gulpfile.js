@@ -8,7 +8,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
-gulp.task('default', ['watch']);
+gulp.task('default', ['js','less','watch']);
 
 gulp.task('bower', function () {
     return bower()
@@ -26,18 +26,19 @@ gulp.task('less', function () {
 gulp.task('js', function () {
     var bundler = browserify({
         entries: ['./js/index.js'],
-        paths: ['./node_modules', '.js']
+        paths: ['./node_modules', '.js'],
+        debug:true
     });
 
     var bundle = function () {
         return bundler
                 .bundle()
-                .pipe(source('bundled.js'))
+                .pipe(source('bundle.js'))
                 .pipe(buffer())
-                //.pipe(uglify())
+                .pipe(uglify())
                 .pipe(sourcemaps.init({loadMaps: true}))
                 .pipe(sourcemaps.write('./'))
-                .pipe(gulp.dest('./js/'));
+                .pipe(gulp.dest('./release/js/'));
     };
 
     return bundle();
@@ -46,4 +47,5 @@ gulp.task('js', function () {
 // Rerun the task when a file changes
 gulp.task('watch', function () {
     gulp.watch('less/**/*.less', ['less']);
+    gulp.watch('js/app/**/*.js', ['js']);
 });

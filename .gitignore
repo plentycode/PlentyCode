@@ -21,6 +21,7 @@ vendor/
 # manual vendor libraries should be added
 #########################
 js/vendor
-js/libs/
+js/libs
+release
 
 #########
