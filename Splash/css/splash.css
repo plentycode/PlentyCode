@@ -12,7 +12,7 @@ a {
 }
 
 .wrapper {
-    background: url('../img/bg_forest.jpg') no-repeat center center fixed;
+    background: url('../images/bg_forest.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

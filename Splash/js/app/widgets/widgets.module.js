@@ -1,6 +1,5 @@
 require([
-   'angular',
-   'app/widgets/pcLogo'
+   'angular'
 ], function(angular){
     
     angular.module('app.widgets', []);

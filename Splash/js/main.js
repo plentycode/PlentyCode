@@ -1,18 +1,17 @@
-(function ($w) {
+(function () {
 
     "use strict";
 
     require.config({
         "baseUrl": "js/",
         "paths": {
-            "jquery": "libs/jquery/dist/jquery",
-            "angular": "libs/angular/angular",
-            "angular-animate": "lib/sangular-animate/angular-animate.min",
+            angular: "vendor/angular/angular",
+            "angular-route":"vendor/angular-route/angular-route",
+            "angular-animate": "vendo/sangular-animate/angular-animate.min"
         },
         "shim": {
-            "angular": {exports: "angular"},
-            "angular-animate": {"deps": ["angular"]},
-            "jquery": {exports: "$"}
+            angular: {exports: "angular"},      
+            "angular-animate": {"deps": ["angular"]}
         },
         "waitSeconds": 0
     });
@@ -21,7 +20,7 @@
     require([
         'app/app.module'
     ], function(){
-        //angular.resumeBootstrap();
+       // angular.resumeBootstrap();
     });
 
-})(window);
+}(window));
