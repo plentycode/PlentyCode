@@ -1,0 +1,46 @@
+/*layout.less*/
+
+.wrapper {
+    .bg-wide('@{image-path}/bg_forest.jpg');
+    height: 101%;
+    width: 100%;
+    position: absolute;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.plenty-logo {
+    position: fixed;
+    color: @logo-text-color;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    .translate3d();
+    .size(290px,250px);
+    text-shadow: 1px 2px 3px #313131;
+    cursor: pointer;
+
+    .logo-code {
+        font-size: 13rem;
+        font-weight: bold;
+        letter-spacing: -25px;
+    }
+
+    .logo-lt {
+        color: @logo-red;
+    }
+
+    .logo-slash {
+        color:@logo-blue ;
+    }
+
+    .logo-gt {
+        color: @logo-green;
+    }
+
+    .logo-text {
+        font-size: 3rem;
+        margin-top: -0.6rem;
+    }
+}
