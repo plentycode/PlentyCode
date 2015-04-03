@@ -1,13 +1,15 @@
 (function () {
     'use strict';
-
-    //requires the modules
+     
+//    //requires the modules
     require('./layout/layout.module');
     require('./widgets/widgets.module');
+    require('./router/router.module');
 
     //adds the applications modules
     angular.module('app', [
         'app.layout',
-        'app.widgets'
+        'app.widgets',
+        'app.router'
     ]);
 }());

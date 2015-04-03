@@ -1,14 +1,15 @@
-var gulp = require('gulp');
-var bower = require('gulp-bower');
-var less = require('gulp-less');
-var uglify = require('gulp-uglify');
-var path = require('path');
-var browserify = require('browserify');
-var sourcemaps = require('gulp-sourcemaps');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
+var gulp = require('gulp'),
+        bower = require('gulp-bower'),
+        less = require('gulp-less'),
+        uglify = require('gulp-uglify'),
+        jshint = require('gulp-jshint'),
+        stylish = require('jshint-stylish'),
+        path = require('path'),
+        browserify = require('browserify'),
+        sourcemaps = require('gulp-sourcemaps'),
+        source = require('vinyl-source-stream'),
+        buffer = require('vinyl-buffer');
 
-gulp.task('default', ['js','less','watch']);
 
 gulp.task('bower', function () {
     return bower()
@@ -22,12 +23,19 @@ gulp.task('less', function () {
             }))
             .pipe(gulp.dest('css'));
 });
+// JSHint task
+gulp.task('jshint', function () {
+    gulp.src(['js/*.js', 'js/app/**/*.js'])
+            .pipe(jshint())
+            .pipe(jshint.reporter(stylish));
+            //.pipe(jshint.reporter('fail'));
+});
 
 gulp.task('js', function () {
     var bundler = browserify({
         entries: ['./js/index.js'],
         paths: ['./node_modules', '.js'],
-        debug:true
+        debug: true
     });
 
     var bundle = function () {
@@ -43,9 +51,11 @@ gulp.task('js', function () {
 
     return bundle();
 });
+//default task run it use: gulp
+gulp.task('default', ['jshint', 'js', 'less', 'watch']);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
     gulp.watch('less/**/*.less', ['less']);
-    gulp.watch('js/app/**/*.js', ['js']);
+    gulp.watch(['js/*.js', 'js/app/**/*.js'], ['jshint', 'js']);
 });
