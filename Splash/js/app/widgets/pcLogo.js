@@ -5,14 +5,13 @@
             .module('app.widgets')
             .directive('pcLogo', pcLogo);
 
-    /* @ngInject */
     function pcLogo() {
         var directive = {
             link: link,
             scope: {
             },
             replace: true,
-            templateUrl: 'js/app/widgets/pcLogo.html',
+            templateUrl: 'views/widgets/pcLogo.html',
             restrict: 'AE'
         };
         return directive;
@@ -20,6 +19,6 @@
         function link(scope, element, attrs) {
             attrs.$set('class', 'plenty-logo');
         }
-        
+
     }
 }());

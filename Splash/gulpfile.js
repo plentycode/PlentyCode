@@ -7,6 +7,7 @@ var gulp = require('gulp'),
         path = require('path'),
         browserify = require('browserify'),
         sourcemaps = require('gulp-sourcemaps'),
+        rimraf = require('gulp-rimraf'),
         source = require('vinyl-source-stream'),
         buffer = require('vinyl-buffer');
 
@@ -21,14 +22,19 @@ gulp.task('less', function () {
             .pipe(less({
                 paths: [path.join(__dirname, 'less', 'includes')]
             }))
-            .pipe(gulp.dest('css'));
+            .pipe(gulp.dest('release/css'));
 });
+gulp.task('content', function () {
+    return gulp.src(['content/**/', 'content/*'])
+            .pipe(gulp.dest('release/content'));
+});
+
 // JSHint task
 gulp.task('jshint', function () {
     gulp.src(['js/*.js', 'js/app/**/*.js'])
             .pipe(jshint())
             .pipe(jshint.reporter(stylish));
-            //.pipe(jshint.reporter('fail'));
+    //.pipe(jshint.reporter('fail'));
 });
 
 gulp.task('js', function () {
@@ -43,7 +49,7 @@ gulp.task('js', function () {
                 .bundle()
                 .pipe(source('bundle.js'))
                 .pipe(buffer())
-                .pipe(uglify())
+                //.pipe(uglify())
                 .pipe(sourcemaps.init({loadMaps: true}))
                 .pipe(sourcemaps.write('./'))
                 .pipe(gulp.dest('./release/js/'));
@@ -51,11 +57,38 @@ gulp.task('js', function () {
 
     return bundle();
 });
+
+// Views task
+gulp.task('views', function () {
+    // Get our index.html
+    gulp.src('./index.html')
+            // And put it in the release folder
+            .pipe(gulp.dest('release/'));
+
+    // Any other view files from /views
+    gulp.src('./views/**/*')
+            // Will be put in the dist/views folder
+            .pipe(gulp.dest('release/views/'));
+});
+
+// Clean task
+gulp.task('clean', function () {
+    gulp.src('./release/views', {
+        read: false
+    }) // much faster
+            .pipe(rimraf({
+                force: true
+            }));
+});
+
 //default task run it use: gulp
-gulp.task('default', ['jshint', 'js', 'less', 'watch']);
+gulp.task('default', ['jshint', 'js', 'views', 'less', 'watch']);
+
+gulp.task('build', ['jshint', 'js', 'clean', 'views', 'less', 'content']);
 
 // Rerun the task when a file changes
 gulp.task('watch', function () {
     gulp.watch('less/**/*.less', ['less']);
     gulp.watch(['js/*.js', 'js/app/**/*.js'], ['jshint', 'js']);
+    gulp.watch(['**/*.html'], ['views']);
 });
