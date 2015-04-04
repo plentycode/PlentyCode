@@ -90,5 +90,5 @@ gulp.task('build', ['jshint', 'js', 'clean', 'views', 'less', 'content']);
 gulp.task('watch', function () {
     gulp.watch('less/**/*.less', ['less']);
     gulp.watch(['js/*.js', 'js/app/**/*.js'], ['jshint', 'js']);
-    gulp.watch(['**/*.html'], ['views']);
+    gulp.watch(['views/**/*','*.html'], ['views']);
 });

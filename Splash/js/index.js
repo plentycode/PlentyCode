@@ -1,4 +1,6 @@
 require('angular');
+require('angular-animate');
+require('angular-ui-router');
 
 (function () {
     'use strict';
@@ -7,6 +9,6 @@ require('angular');
     require('./app/app.module');
 
     //bootstrap angular app
-   // angular.bootstrap(document, ['app']);
+    // angular.bootstrap(document, ['app']);
 
 })(window);

@@ -1,4 +1,5 @@
 (function () {
-    angular.module('app.router', []);
-    
+    angular.module('app.router', ['ui.router']);
+            
+
 }());

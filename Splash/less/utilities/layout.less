@@ -11,6 +11,10 @@
 }
 
 .plenty-logo {
+    &.to-corner{
+        top: 120px;
+    }
+    z-index: 10;
     position: fixed;
     color: @logo-text-color;
     text-align: center;
@@ -22,7 +26,7 @@
     cursor: pointer;
 
     .logo-code {
-        font-size: 13rem;
+        font-size: 12rem;
         font-weight: bold;
         letter-spacing: -25px;
     }
@@ -43,4 +47,6 @@
         font-size: 3rem;
         margin-top: -0.6rem;
     }
+
+
 }

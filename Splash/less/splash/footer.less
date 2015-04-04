@@ -1,8 +1,12 @@
-.wrapper > footer{
+footer{
     position: absolute;
     width: 100%;
     height: 8rem;
-    bottom: 0;
+    bottom: -65%;
+    
+    .open &{
+         bottom: 0;
+    }
 }
 
 /*menu botom*/
@@ -13,10 +17,6 @@
         bottom: -65%;
         width: 100%;
         height: 123px;
-        .open {
-            bottom: 3%;
-        }
-
     }
 }
 
@@ -92,44 +92,6 @@
     opacity: 0;
 }
 
-/* Effect 7b */
-.plenty-icon-effect-7b .plenty-icon:after {
-    box-shadow: 3px 3px rgba(255,255,255,1);
-    -webkit-transform: rotate(-90deg);
-    -moz-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
-    -webkit-transition: opacity 0.2s, -webkit-transform 0.2s;
-    -moz-transition: opacity 0.2s, -moz-transform 0.2s;
-    transition: opacity 0.2s, transform 0.2s;
-}
-
-.plenty-icon-effect-7b .plenty-icon:hover:after, .plenty-icon.selected::after {
-    opacity: 1;
-    -webkit-transform: rotate(0deg);
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
-}
-
-.plenty-icon-effect-7b .plenty-icon:before {
-    -webkit-transform: scale(0.8);
-    -moz-transform: scale(0.8);
-    -ms-transform: scale(0.8);
-    transform: scale(0.8);
-    opacity: 0.7;
-    -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
-    -moz-transition: -moz-transform 0.2s, opacity 0.2s;
-    transition: transform 0.2s, opacity 0.2s;
-}
-
-.plenty-icon-effect-7b .plenty-icon:hover:before, .plenty-icon.selected:before {
-    -webkit-transform: scale(1);
-    -moz-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-    opacity: 1;
-}
 
 
 
