@@ -49,13 +49,19 @@ gulp.task('js', function () {
                 .bundle()
                 .pipe(source('bundle.js'))
                 .pipe(buffer())
-                //.pipe(uglify())
+                // .pipe(uglify())
                 .pipe(sourcemaps.init({loadMaps: true}))
                 .pipe(sourcemaps.write('./'))
                 .pipe(gulp.dest('./release/js/'));
     };
 
     return bundle();
+});
+
+gulp.task('uglify', function () {
+    gulp.src('./release/js/*.js')
+            .pipe(uglify())
+            .pipe(gulp.dest('./release/js'));
 });
 
 // Views task
@@ -90,5 +96,5 @@ gulp.task('build', ['jshint', 'js', 'clean', 'views', 'less', 'content']);
 gulp.task('watch', function () {
     gulp.watch('less/**/*.less', ['less']);
     gulp.watch(['js/*.js', 'js/app/**/*.js'], ['jshint', 'js']);
-    gulp.watch(['views/**/*','*.html'], ['views']);
+    gulp.watch(['views/**/*', '*.html'], ['views']);
 });

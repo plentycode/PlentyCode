@@ -2,9 +2,9 @@
     angular.module('app.layout')
             .controller('Shell', Shell);
 
-    Shell.$inject = ['$timeout', '$location'];
+    Shell.$inject = ['$timeout'];
 
-    function Shell($timeout, $location) {
+    function Shell($timeout) {
         var vm = this;
         vm.expandedView = false;
         vm.toggleView = toggleView;

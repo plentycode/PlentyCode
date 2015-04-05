@@ -4,6 +4,7 @@
     angular.module('app.layout', []);
 
     require('./shell');
+    require('./footer');
     require('./pages/home');
 
 }());
