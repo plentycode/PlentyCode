@@ -3,15 +3,15 @@
 
     angular
             .module('app.widgets')
-            .directive('pcLogo', pcLogo);
+            .directive('pcSocial', pcSocial);
 
-    function pcLogo() {
+    function pcSocial() {
         var directive = {
             link: link,
             scope: {
             },
           //  replace: true,
-            templateUrl: 'views/widgets/pcLogo.html',
+            templateUrl: 'views/widgets/pcSocial.html',
             restrict: 'AE'
         };
         return directive;

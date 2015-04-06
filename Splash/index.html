@@ -20,12 +20,11 @@
     <body data-ng-controller="Shell as vm">
 
         <section class="wrapper content" data-ng-class="{'open':vm.expandedView}"   data-ng-cloak id="content" >
-            <div ng-click="vm.toggleView()" data-pc-logo="" data-ng-class="{'to-corner':vm.expandedView}" ></div>
+            <header ng-click="vm.toggleView()" data-pc-logo="" data-ng-class="{'to-corner':vm.expandedView}" ></header>
 
-            <article data-ui-view class="plenty-info-box" style='visibility: hidden;'>
+            <article data-ui-view class="plenty-info-box" style='visibility: hidden;'></article>
 
-            </article>
-
+            <div data-pc-social></div>
             <footer data-ng-include="'./views/layout/footer.html'"></footer>
         </section>
 
