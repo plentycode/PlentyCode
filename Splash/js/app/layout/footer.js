@@ -1,14 +1,13 @@
-(function(){
-   'use strict';
-       angular.module('app.layout')
-            .controller('Footer', Shell);
+(function () {
+    'use strict';
+    angular.module('app.layout')
+            .controller('Footer', Footer);
 
-    Shell.$inject = [];
-
-    function Shell() {
+    /* @ngInject */
+    function Footer() {
         var vm = this;
- 
- 
+
+
     }
-    
+
 }());

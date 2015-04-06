@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
         bower = require('gulp-bower'),
         less = require('gulp-less'),
+        concat = require('gulp-concat'),
         uglify = require('gulp-uglify'),
         jshint = require('gulp-jshint'),
         stylish = require('jshint-stylish'),
@@ -57,6 +58,23 @@ gulp.task('js', function () {
 
     return bundle();
 });
+
+// Browserify task
+gulp.task('browserify', function () {
+    // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
+    gulp.src(['./js/index.js'])
+            .pipe(browserify({
+                insertGlobals: true,
+                debug: false,
+                paths: ['./node_modules', '.js']
+            }))
+            // Bundle to a single file
+            .pipe(concat('bundle.js'))
+            .pipe(buffer())
+            // Output it to our dist folder
+            .pipe(gulp.dest('release/js'));
+});
+
 
 gulp.task('uglify', function () {
     gulp.src('./release/js/*.js')
