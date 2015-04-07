@@ -5,6 +5,7 @@
 
     require('./shell');
     require('./footer');
-    require('./pages/home');
+    require('./pages/home');    
+    require('./pages/web-pages');
 
 }());

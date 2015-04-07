@@ -31,10 +31,10 @@
                 })
                 .state('webpages.item', {
                     url: '/:item',
-                    templateUrl: 'pages/webpages.item.html',
-                    controller: function ($scope, $stateParams) {
-                        $scope.item = $stateParams.item;
-                    }
+                    templateUrl: function ($stateParams) {
+                        return 'views/pages/_web-pages/' + ($stateParams.item || 'web-sites') + '.html';
+                    },
+                    controller: 'WebPages'
                 });
         $urlRouterProvider.otherwise('/home');
 
