@@ -1,118 +1,151 @@
 var gulp = require('gulp'),
-        bower = require('gulp-bower'),
-        less = require('gulp-less'),
-        concat = require('gulp-concat'),
-        uglify = require('gulp-uglify'),
-        jshint = require('gulp-jshint'),
-        stylish = require('jshint-stylish'),
-        path = require('path'),
-        browserify = require('browserify'),
-        sourcemaps = require('gulp-sourcemaps'),
-        rimraf = require('gulp-rimraf'),
-        source = require('vinyl-source-stream'),
-        buffer = require('vinyl-buffer');
+    karma = require('karma').server,
+    less = require('gulp-less'),
+    uglify = require('gulp-uglify'),
+    ngAnnotate = require('gulp-ng-annotate'),
+    jshint = require('gulp-jshint'),
+    cssmin = require('gulp-cssmin'),
+    minifyHTML = require('gulp-minify-html'),
+    stylish = require('jshint-stylish'),
+    path = require('path'),
+    browserify = require('browserify'),
+    sourcemaps = require('gulp-sourcemaps'),
+    rimraf = require('gulp-rimraf'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer');
 
-
-gulp.task('bower', function () {
-    return bower()
-            .pipe(gulp.dest('js/vendor/'));
-});
-
+//builds less into css files and move them to release
 gulp.task('less', function () {
-    return gulp.src('less/*.less')
-            .pipe(less({
-                paths: [path.join(__dirname, 'less', 'includes')]
-            }))
-            .pipe(gulp.dest('release/css'));
+    return gulp.src('app/less/*.less')
+        .pipe(less({
+            paths: [path.join(__dirname, 'less', 'includes')]
+        }))
+        .pipe(gulp.dest('release/css'));
 });
-gulp.task('content', function () {
-    return gulp.src(['content/**/', 'content/*'])
-            .pipe(gulp.dest('release/content'));
+
+
+// Run test once and exit
+gulp.task('test', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js',
+        singleRun: true
+    }, function (exitStatus) {
+        done();
+    });
+});
+
+
+// Watch for file changes and re-run tests on each change
+gulp.task('tdd', function (done) {
+    karma.start({
+        configFile: __dirname + '/karma.conf.js'
+    }, function (exitStatus) {
+        done();
+    });
+});
+
+//moves all the static content (images/* fonts/*)
+gulp.task('static_content', function () {
+    return gulp.src(['app/static_content/**/', 'app/static_content/*'])
+        .pipe(gulp.dest('release/static_content'));
+});
+
+//moves the api simulated files to release
+gulp.task('api_content', function () {
+    return gulp.src(['API/**/'])
+        .pipe(gulp.dest('release/API'));
 });
 
 // JSHint task
 gulp.task('jshint', function () {
-    gulp.src(['js/*.js', 'js/app/**/*.js'])
-            .pipe(jshint())
-            .pipe(jshint.reporter(stylish));
+    gulp.src(['app/*.js', 'app/js/**/*.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish));
     //.pipe(jshint.reporter('fail'));
 });
 
+//creates the bundle file and bundle.js.map
 gulp.task('js', function () {
-    var bundler = browserify({
-        entries: ['./js/index.js'],
-        paths: ['./node_modules', '.js'],
-        debug: true
-    });
-
     var bundle = function () {
-        return bundler
-                .bundle()
-                .pipe(source('bundle.js'))
-                .pipe(buffer())
-                // .pipe(uglify())
-                .pipe(sourcemaps.init({loadMaps: true}))
-                .pipe(sourcemaps.write('./'))
-                .pipe(gulp.dest('./release/js/'));
+        return browserify({
+                entries: ['./app/js/index.js'],
+                paths: ['./node_modules', '.js'],
+                debug: true
+            })
+            .bundle()
+            .pipe(source('bundle.js'))
+            .pipe(buffer())
+            .pipe(sourcemaps.init({
+                loadMaps: true
+            }))
+            .pipe(sourcemaps.write('./'))
+            .pipe(gulp.dest('./release/js/'))
+            .on('error', swallowError);
     };
 
     return bundle();
 });
 
-// Browserify task
-gulp.task('browserify', function () {
-    // Single point of entry (make sure not to src ALL your files, browserify will figure it out)
-    gulp.src(['./js/index.js'])
-            .pipe(browserify({
-                insertGlobals: true,
-                debug: false,
-                paths: ['./node_modules', '.js']
-            }))
-            // Bundle to a single file
-            .pipe(concat('bundle.js'))
-            .pipe(buffer())
-            // Output it to our dist folder
-            .pipe(gulp.dest('release/js'));
-});
-
-
+//minifies the bundle file and annotates angular injected modules
 gulp.task('uglify', function () {
     gulp.src('./release/js/*.js')
-            .pipe(uglify())
-            .pipe(gulp.dest('./release/js'));
+        .pipe(ngAnnotate())
+        .pipe(uglify())
+        .pipe(gulp.dest('./release/js'));
+});
+
+//minifies the css generated
+gulp.task('cssmin', function () {
+    gulp.src('./release/css/*.css')
+        .pipe(cssmin())
+        .pipe(gulp.dest('./release/css'));
+});
+
+//minifies the html views
+gulp.task('minify-html', function () {
+    var opts = {
+        conditionals: true,
+        spare: true
+    };
+
+    return gulp.src('./release/views/**/*.html')
+        .pipe(minifyHTML(opts))
+        .pipe(gulp.dest('./release/views'));
 });
 
 // Views task
 gulp.task('views', function () {
-    // Get our index.html
-    gulp.src('./index.html')
-            // And put it in the release folder
-            .pipe(gulp.dest('release/'));
+    //index should be moved separately
+    gulp.src('./app/index.html')
+        .pipe(gulp.dest('release/'));
 
     // Any other view files from /views
-    gulp.src('./views/**/*')
-            // Will be put in the dist/views folder
-            .pipe(gulp.dest('release/views/'));
+    gulp.src('./app/views/**/*')
+        .pipe(gulp.dest('release/views/'));
 });
 
-// Clean task
-gulp.task('clean', function () {
-    gulp.src('./release/views', {
-        read: false
-    }) // much faster
-            .pipe(rimraf({
-                force: true
-            }));
-});
+function swallowError(error) {
+
+    //If you want details of the error in the console
+    console.log(error.toString());
+
+    this.emit('end');
+}
+
 
 //default task run it use: gulp
-gulp.task('default', ['jshint', 'js', 'views', 'less', 'watch']);
+gulp.task('default', ['build', 'watch']);
 
-gulp.task('build', ['jshint', 'js', 'clean', 'views', 'less', 'content']);
+// 1. gulp build -> builds the project
+gulp.task('build', ['jshint', 'test', 'js', 'views', 'less', 'static_content', 'api_content']);
 
-// Rerun the task when a file changes
+//2. gulp release -> then minifies the generated files into release
+gulp.task('release', ['uglify', 'cssmin', 'minify-html']);
+
+// Re-run the task when a file changes
 gulp.task('watch', function () {
-    gulp.watch('less/**/*.less', ['less']);
-    gulp.watch(['js/*.js', 'js/app/**/*.js'], ['jshint', 'js']);
-    gulp.watch(['views/**/*', '*.html'], ['views']);
+    gulp.watch('app/less/**/*.less', ['less']);
+    gulp.watch(['app/js/*.js', 'app/js/**/*.js'], ['jshint', 'test', 'js']);
+    gulp.watch(['app/views/**/*', 'app/*.html'], ['views', 'static_content']);
+    gulp.watch(['API/**/*'], ['api_content']);
 });
