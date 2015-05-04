@@ -1,17 +1,17 @@
 (function () {
+    'use strict';
     angular.module('app.layout')
             .controller('Shell', Shell);
 
     Shell.$inject = ['$timeout'];
 
     function Shell($timeout) {
-        var vm = this;
-        vm.expandedView = false;
-        vm.toggleView = toggleView;
+        var shell = this;
+        shell.expandedView = false;
+        shell.toggleView = toggleView;
 
         function toggleView() {
-            vm.expandedView = !vm.expandedView;
+            shell.expandedView = !shell.expandedView;
         }
-    }
-    
+    }    
 }());
