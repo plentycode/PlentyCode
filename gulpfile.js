@@ -154,7 +154,7 @@ gulp.task('start-server', function () {
 //deploy task
 gulp.task('deploy', function () {
     runSequence(
-        ['jshint', 'test', 'js', 'views', 'less', 'static_content', 'api_content'],
+        ['js', 'views', 'less', 'static_content'],
         ['uglify', 'cssmin', 'minify-html'],
         'start-server'
         );
