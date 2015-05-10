@@ -47,9 +47,9 @@ gulp.task('tdd', function (done) {
 });
 
 //moves all the static content (images/* fonts/*)
-gulp.task('static_content', function () {
-    return gulp.src(['app/static_content/**/', 'app/static_content/*'])
-        .pipe(gulp.dest('release/static_content'));
+gulp.task('media_content', function () {
+    return gulp.src(['app/media_content/**/', 'app/media_content/*'])
+        .pipe(gulp.dest('release/media_content'));
 });
 
 //moves the api simulated files to release
@@ -139,7 +139,7 @@ function swallowError(error) {
 gulp.task('default', ['build', 'watch']);
 
 // 1. gulp build -> builds the project
-gulp.task('build', ['jshint', 'test', 'js', 'views', 'less', 'static_content', 'api_content']);
+gulp.task('build', ['jshint', 'test', 'js', 'views', 'less', 'media_content']);
 
 //2. gulp release -> then minifies the generated files into release
 gulp.task('release', ['uglify', 'cssmin', 'minify-html']);
@@ -153,7 +153,7 @@ gulp.task('start-server', function () {
 //deploy task
 gulp.task('deploy', function () {
     runSequence(
-        ['js', 'views', 'less', 'static_content'],
+        ['js', 'views', 'less', 'media_content'],
         ['uglify', 'cssmin', 'minify-html'],
         'start-server'
         );
