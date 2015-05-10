@@ -147,8 +147,7 @@ gulp.task('release', ['uglify', 'cssmin', 'minify-html']);
 gulp.task('start-server', function () {
     nodemon({
         script: 'server.js',
-        ext: 'js html',
-        env: { 'NODE_ENV': 'development' }
+        ext: 'js html'
     });
 });
 //deploy task
