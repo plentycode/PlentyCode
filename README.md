@@ -1,6 +1,6 @@
-# C - I'M
+# Plentycode.com
 
-Demo page: [http://plentycode.com/CIM](http://plentycode.com/CIM/).
+Demo page: [http://www.plentycode.com](http://www.plentycode.com).
 
 ## Getting Started
 
@@ -11,7 +11,7 @@ You will need **git** to clone the repository. You can get git from
 
 You must have node.js and its package manager (npm) installed.  You can get them from [http://nodejs.org/](http://nodejs.org/).
 
-#### Clone PL_CIM
+#### Clone PlentyCode
 To get started, please clone the repository:
 
 ```
