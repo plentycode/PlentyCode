@@ -42,7 +42,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "postinstall": "bower update",
+    "postinstall": "gulp deploy",
     "prestart": "npm update"
   },
   "author": "Carlos I Mercado",
