@@ -150,6 +150,12 @@ gulp.task('start-server', function () {
         ext: 'js html'
     });
 });
+gulp.task('build:release', function () {
+    runSequence(
+        ['js', 'views', 'less', 'content'],
+        ['uglify', 'cssmin', 'minify-html']
+        );
+});
 //deploy task
 gulp.task('deploy', function () {
     runSequence(
