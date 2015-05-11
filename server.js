@@ -8,6 +8,10 @@ app.use(bodyParser.json({ extended: true }));       // to support JSON-encoded b
 app.use(bodyParser.urlencoded({ extended: true })); // to support URL-encoded bodies
 
 //routes
+app.get('/CIM', function (req, res) {
+   res.redirect('http://cim-plentycode.herokuapp.com') 
+});
+
 app.use(express.static(__dirname + '/release/'));
 
 //application port it takes localhost:2000 when is running locally
