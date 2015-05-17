@@ -44,14 +44,16 @@ header {
     text-shadow: 1px 2px 3px #313131;
     
     .logo-code {
-    font-weight: bold;
-    font-size: 11rem;
-    letter-spacing: -1.5rem;
-        .to-corner & {
-            font-size: 7rem;
-            letter-spacing: -1rem;
-            margin: 0 2rem;
-        }
+        font-weight: bold;
+        font-size: 11rem;
+        margin-left: -1rem;
+        min-width: 230px;
+        letter-spacing: -1.5rem;
+            .to-corner & {
+                font-size: 7rem;
+                letter-spacing: -1rem;
+                margin: 0 2rem;
+            }
     }
     .logo-text {
         font-size: 3rem;
@@ -66,7 +68,8 @@ header {
         }
     }
     .loading {
-        left: 48%;
+        left: 50%;
+        margin-left: -2rem;
         .to-corner & {
             display: none;
         }
