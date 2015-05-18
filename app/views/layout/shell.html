@@ -1,10 +1,9 @@
-<div data-ng-controller="Shell as vm" >
+<div data-ng-controller="Shell as shell" >
 
-    <section class="wrapper content" data-ng-class="{'open':vm.expandedView}"   data-ng-cloak id="content" >
-        <div ng-click="vm.toggleView()" data-pc-logo="" data-ng-class="{'to-corner':vm.expandedView}" ></div>
+    <section class="wrapper content" data-ng-class="{ 'open':shell.expandedView }"   data-ng-cloak id="content" >
+        <div ng-click="shell.toggleView()" data-pc-logo="" data-ng-class="{ 'to-corner':shell.expandedView }" ></div>
 
         <article data-ui-view class="plenty-info-box">
-
         </article>
 
         <footer data-ng-include="'./views/layout/footer.html'"></footer>
