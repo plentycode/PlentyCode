@@ -15,8 +15,11 @@
     
     <body data-ng-controller="Shell as shell">
         <section class="wrapper content" data-ng-class="{'open':shell.expandedView}" data-ng-cloak id="content">
+            
             <pc-logo ng-class="{'to-corner':shell.expandedView}"> </pc-logo>
-           <article data-ui-view class="plenty-info-box" style='visibility: hidden;'></article>
+            
+            <article data-ui-view class="plenty-info-box" style='visibility: hidden;'></article>
+            <a class="close-view" ng-click="shell.toggleView()">X</a>    
             <div data-pc-social></div>
                 
             <footer data-ng-include="'./views/layout/footer.html'"></footer>

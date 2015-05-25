@@ -8,13 +8,16 @@ header {
 }
 
 .wrapper {
-    .bg-wide('@{image-path}/bg_forest.jpg');
+    .bg-wide('@{image-path}/bg_forest_medium.jpg');
     height: 101%;
     width: 100%;
     position: absolute;
     overflow: hidden;
     top: 0;
     left: 0;
+    @media screen and (min-width: 1024px) {
+        background-image: url('@{image-path}/bg_forest.jpg');
+    }
 }
 
 .content-well {
@@ -49,7 +52,7 @@ header {
         margin-top: -0.6rem;
         font-weight: 400;
         & .logo-light {
-            font-weight: 200;
+            font-weight: 300;
         }
     }
     .loading {
@@ -111,4 +114,26 @@ ul.social {
             background: rgba(86, 211, 138, .5)
         }
     }
+}
+
+.close-view {
+      position: absolute;
+      top: 2.2%;
+      right: 4%;
+      background-color: rgba(0, 0, 0, 0);
+      border: none;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #fff;
+      cursor: pointer;
+      display: block;
+      text-shadow: 1px 2px 3px #313131;
+      opacity: 0;
+      
+      &:hover, &:focus {
+          transform: scale(2, 2) rotate(90deg);
+      }
+      .open & {
+          opacity: 1;
+      }
 }

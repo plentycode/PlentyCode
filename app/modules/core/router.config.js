@@ -10,29 +10,29 @@
         $stateProvider
             .state('home', {
                 url: '/home',
-                templateUrl: 'views/pages/home.html',
+                templateUrl: 'views/layout/pages/home.html',
                 controller: 'Home'
             })
             .state('contact-us', {
                 url: '/contact-us',
-                templateUrl: 'views/pages/contact-us.html'
+                templateUrl: 'views/layout/pages/contact-us.html'
             })
             .state('software', {
                 url: '/software',
-                templateUrl: 'views/pages/software.html'
+                templateUrl: 'views/layout/pages/software.html'
             })
             .state('mobile-apps', {
                 url: '/mobile-apps',
-                templateUrl: 'views/pages/mobile-apps.html'
+                templateUrl: 'views/layout/pages/mobile-apps.html'
             })
             .state('webpages', {
                 url: '/web-pages',
-                templateUrl: 'views/pages/web-pages.html'
+                templateUrl: 'views/layout/pages/web-pages.html'
             })
             .state('webpages.item', {
                 url: '/:item',
                 templateUrl: function ($stateParams) {
-                    return 'views/pages/_web-pages/' + ($stateParams.item || 'web-sites') + '.html';
+                    return 'views/layout/pages/_web-pages/' + ($stateParams.item || 'web-sites') + '.html';
                 },
                 controller: 'WebPages'
             });

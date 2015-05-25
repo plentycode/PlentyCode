@@ -1,27 +1,22 @@
+/* global __dirname */
 var gulp = require('gulp'),
+    $ = require('gulp-load-plugins')(),
     karma = require('karma').server,
-    less = require('gulp-less'),
-    uglify = require('gulp-uglify'),
-    ngAnnotate = require('gulp-ng-annotate'),
-    jshint = require('gulp-jshint'),
-    cssmin = require('gulp-cssmin'),
-    minifyHTML = require('gulp-minify-html'),
     stylish = require('jshint-stylish'),
     path = require('path'),
     browserify = require('browserify'),
-    sourcemaps = require('gulp-sourcemaps'),
-    rimraf = require('gulp-rimraf'),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
-    runSequence = require('run-sequence').use(gulp),
-    nodemon = require('gulp-nodemon');
+    runSequence = require('run-sequence').use(gulp);
 
 //builds less into css files and move them to release
 gulp.task('less', function () {
     return gulp.src('app/less/*.less')
-        .pipe(less({
-        paths: [path.join(__dirname, 'less', 'includes')]
-    }))
+        .pipe($.sourcemaps.init({ loadMaps: true }))
+        .pipe($.less({
+            paths: [path.join(__dirname, 'less', 'includes')] 
+        }))
+        .pipe($.sourcemaps.write())
         .pipe(gulp.dest('release/css'));
 });
 
@@ -52,17 +47,11 @@ gulp.task('content', function () {
         .pipe(gulp.dest('release/content'));
 });
 
-//moves the api simulated files to release
-gulp.task('api_content', function () {
-    return gulp.src(['API/**/'])
-        .pipe(gulp.dest('release/API'));
-});
-
 // JSHint task
 gulp.task('jshint', function () {
-    gulp.src(['app/*.js', 'app/js/**/*.js'])
-        .pipe(jshint())
-        .pipe(jshint.reporter(stylish));
+    gulp.src(['app/*.js', 'app/**/*.js'])
+        .pipe($.jshint())
+        .pipe($.jshint.reporter(stylish));
     //.pipe(jshint.reporter('fail'));
 });
 
@@ -70,18 +59,24 @@ gulp.task('jshint', function () {
 gulp.task('js', function () {
     var bundle = function () {
         return browserify({
-            entries: ['./app/js/index.js'],
+            entries: ['./app/index.js'],
             paths: ['./node_modules', '.js'],
             debug: true
         })
             .bundle()
             .pipe(source('bundle.js'))
             .pipe(buffer())
-            .pipe(sourcemaps.init({
+            .pipe($.sourcemaps.init({
             loadMaps: true
         }))
-            .pipe(sourcemaps.write('./'))
+            .pipe($.sourcemaps.write('./'))
             .pipe(gulp.dest('./release/js/'))
+            .pipe($.notify({
+            onLast: true,
+            message: function () {
+                return 'built js correctly!';
+            }
+        }))
             .on('error', swallowError);
     };
 
@@ -91,15 +86,15 @@ gulp.task('js', function () {
 //minifies the bundle file and annotates angular injected modules
 gulp.task('uglify', function () {
     gulp.src('./release/js/*.js')
-        .pipe(ngAnnotate())
-        .pipe(uglify())
+        .pipe($.ngAnnotate())
+        .pipe($.uglify())
         .pipe(gulp.dest('./release/js'));
 });
 
 //minifies the css generated
 gulp.task('cssmin', function () {
     gulp.src('./release/css/*.css')
-        .pipe(cssmin())
+        .pipe($.cssmin())
         .pipe(gulp.dest('./release/css'));
 });
 
@@ -111,7 +106,7 @@ gulp.task('minify-html', function () {
     };
 
     return gulp.src('./release/views/**/*.html')
-        .pipe(minifyHTML(opts))
+        .pipe($.minifyHtml(opts))
         .pipe(gulp.dest('./release/views'));
 });
 
@@ -122,15 +117,19 @@ gulp.task('views', function () {
         .pipe(gulp.dest('release/'));
 
     // Any other view files from /views
-    gulp.src('./app/views/**/*')
+    gulp.src('./app/modules/**/*.html')
         .pipe(gulp.dest('release/views/'));
 });
 
 function swallowError(error) {
-
+    $.notify({
+        onLast: true,
+        message: function () {
+            return 'error trying to build';
+        }
+    });
     //If you want details of the error in the console
     console.log(error.toString());
-
     this.emit('end');
 }
 
@@ -145,7 +144,7 @@ gulp.task('build', ['jshint', 'test', 'js', 'views', 'less', 'content']);
 gulp.task('release', ['uglify', 'cssmin', 'minify-html']);
 
 gulp.task('start-server', function () {
-    nodemon({
+    $.nodemon({
         script: 'server.js',
         ext: 'js html'
     });
@@ -167,7 +166,6 @@ gulp.task('deploy', function () {
 // Re-run the task when a file changes
 gulp.task('watch', function () {
     gulp.watch('app/less/**/*.less', ['less']);
-    gulp.watch(['app/js/*.js', 'app/js/**/*.js'], ['jshint', 'test', 'js']);
-    gulp.watch(['app/views/**/*', 'app/*.html'], ['views', 'content']);
-    gulp.watch(['API/**/*'], ['api_content']);
+    gulp.watch(['app/*.js', 'app/**/*.js'], ['jshint', 'test', 'js']);
+    gulp.watch(['app/**/*.html', 'app/*.html'], ['views', 'content']);
 });

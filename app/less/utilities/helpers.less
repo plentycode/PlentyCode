@@ -2,9 +2,15 @@
 
 @using-ieclasses: true;
 @disable-filters: false;
+
+//inserts blocks of code to a min-width condition
+.responsive(@minWidth; @rules) {
+    @media only screen and (min-width: @minWidth) {
+        @rules();
+    }
+}
 .main-font(){
     font-family: "Lato",sans-serif;
-    font-weight: 300;
 }
 
 .bg-wide(@src){

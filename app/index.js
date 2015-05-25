@@ -1,7 +1,6 @@
 require('angular');
 require('angular-animate');
 require('angular-ui-router');
-require('angular-translate');
 
 (function () {
     'use strict';
