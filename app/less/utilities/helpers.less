@@ -3,6 +3,20 @@
 @using-ieclasses: true;
 @disable-filters: false;
 
+//mobile-first strategy
+@tablet: 768px;
+@desktop: 1024px;
+
+.respond-min(@minWidth; @rules) {
+    @media only screen and (min-width: @minWidth) {
+        @rules();
+    }
+}
+.respond-max(@maxWidth; @rules) {
+    @media only screen and (min-width: @maxWidth) {
+        @rules();
+    }
+}
 //inserts blocks of code to a min-width condition
 .responsive(@minWidth; @rules) {
     @media only screen and (min-width: @minWidth) {

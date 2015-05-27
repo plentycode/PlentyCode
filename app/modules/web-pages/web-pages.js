@@ -3,12 +3,12 @@
     var _ = require('lodash');
 
     angular
-        .module('app.layout')
+        .module('app.webpages')
         .controller('WebPages', WebPages);
 
     function WebPages($rootScope, $stateParams) {
         var vm = this;
-        vm.title = 'Web Pages';
+        vm.title = 'Be known!';
         $rootScope.selectedItem = $stateParams.item || 'web-sites';
 
         var list = [

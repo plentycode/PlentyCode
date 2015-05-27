@@ -4,10 +4,10 @@ module.exports = function (config) {
         plugins: ['karma-*'],
         frameworks: ['jasmine', 'browserify'],
         preprocessors: {
-            'app/**/*.js': ['browserify']
+            'app/modules/**/*.js': ['browserify']
         },
         files: [
-          'app/**/*.spec.js'
+          'app/modules/**/*.spec.js'
         ],
         browserify: {
             debug: true // output source maps
