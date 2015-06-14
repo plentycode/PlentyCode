@@ -2,9 +2,9 @@
     'use strict';
 
     //requires the modules
-    require('./core/core.module');
-    require('./layout/layout.module');
-    require('./widgets/widgets.module');
+    require('./core');
+    require('./layout');
+    require('./widgets');
     require('./home');
     require('./contact');
     require('./software');

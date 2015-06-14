@@ -6,7 +6,7 @@ require('angular-ui-router');
     'use strict';
 
     // load modules needed for application
-    require('./modules/app.module');
+    require('./modules/app');
 
     //bootstrap angular app
     // angular.bootstrap(document, ['app']);

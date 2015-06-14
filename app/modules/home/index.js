@@ -2,6 +2,6 @@
 	angular.module('app.home', []);
 
 	require('./home');
-	require('./home.routes');
-	
+	require('./home.config');
+
 })();

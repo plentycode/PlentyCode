@@ -18,7 +18,7 @@ describe('contact-us', function () {
 
         mockService.sendEmail = function () {
             deferred.resolve({});
-            return deferred.promise;
+            return deferred;
         };
 
         //injects angular scopes to the controller
