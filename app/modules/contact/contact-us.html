@@ -1,20 +1,23 @@
-<h2 class="plenty-box-title">Contact Us</h2>
-<form id="contact-form" class="plenty-form">
-    <div class="fields">
-        <label>Name</label>
-        <input id="contact-name" type="text" placeholder="John Doe" class="required" />
-    </div>
-    <div class="fields">
-        <label>Email</label>
-        <input id="contact-email" type="email" name="email" placeholder="jdoe@plentycode.com" class="required">
-    </div>
+<div data-ng-controller="Contact as vm" class="content-well plenty-box-content ">
+    <h2 class="plenty-box-title">{{vm.title}}</h2>
+    <form id="contact-form" class="plenty-form" ng-submit="vm.sendEmail()">
+        <div class="fields">
+            <label>Name</label>
+            <input ng-model="vm.contact.Name" type="text" placeholder="John Doe" required />
+        </div>
+        <div class="fields">
+            <label>Email</label>
+            <input ng-model="vm.contact.Email" type="email" name="email" placeholder="jdoe@plentycode.com" required>
+        </div>
 
-    <div class="fields">
-        <label>Leave us your comments</label>
-        <textarea id="contact-comments" rows="4" placeholder="Let's work together!" class="required"></textarea>
-    </div>
-    <div class="fields-bottom">
-        <div class="form-message"></div>
-        <button type="submit" class="submit-info">Send</button>
-    </div>
-</form>
+        <div class="fields">
+            <label>Leave us your comments</label>
+            <textarea ng-model="vm.contact.Comments" rows="4" placeholder="Let's work together!" required></textarea>
+        </div>
+        <div class="fields-bottom">
+            <div ng-if="vm.loading" class="loading"></div>
+            <div ng-show="vm.response" class="form-message" ng-class ="{'error': !vm.response.success}">{{vm.response.message}}</div>
+            <button type="submit" class="submit-info" ng-disabled="vm.loading">Send</button>
+        </div>
+    </form>
+</div>

@@ -1,7 +1,7 @@
-(function (angular) {
+(function () {
     angular.module('app.webpages')
         .config(config);
-		
+
     /* @ngInject */
     function config($stateProvider) {
 
@@ -18,4 +18,4 @@
                 controller: 'WebPages'
         });
     }
-})(window);
+})();

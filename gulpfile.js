@@ -14,7 +14,7 @@ gulp.task('less', function () {
     return gulp.src('app/less/*.less')
         .pipe($.sourcemaps.init({ loadMaps: true }))
         .pipe($.less({
-            paths: [path.join(__dirname, 'less', 'includes')] 
+            paths: [path.join(__dirname, 'less', 'includes')]
         }))
         .pipe($.sourcemaps.write())
         .pipe(gulp.dest('release/css'));
@@ -72,11 +72,11 @@ gulp.task('js', function () {
             .pipe($.sourcemaps.write('./'))
             .pipe(gulp.dest('./release/js/'))
             .pipe($.notify({
-            onLast: true,
-            message: function () {
-                return 'built js correctly!';
-            }
-        }))
+                onLast: true,
+                message: function () {
+                    return 'built js correctly!';
+                }
+            }))
             .on('error', swallowError);
     };
 
@@ -146,7 +146,8 @@ gulp.task('release', ['uglify', 'cssmin', 'minify-html']);
 gulp.task('start-server', function () {
     $.nodemon({
         script: 'server.js',
-        ext: 'js html'
+        ext: 'js html',
+        env: { 'NODE_ENV': 'development' }
     });
 });
 gulp.task('build:release', function () {

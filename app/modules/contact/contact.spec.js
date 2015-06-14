@@ -7,35 +7,73 @@ require('./');
 describe('contact-us', function () {
     'use strict';
 
-    var deferred, scope, contact, translateServiceMock, dataservice;
+    var deferred, scope, vm, mockService;
 
     beforeEach(function () {
         angular.mock.module('app.contact');
         inject(function ($q) {
-            deferred = $q;
+            deferred = $q.defer();
         });
+        mockService = {};
 
-        var mockedDeferred = deferred(function (resolve, reject) {
-            resolve({});
-        });
-		
+        mockService.sendEmail = function () {
+            deferred.resolve({});
+            return deferred.promise;
+        };
+
         //injects angular scopes to the controller
         inject(function ($controller, $rootScope) {
             scope = $rootScope.$new();
-            contact = $controller('Contact', {
-                $scope: scope
+            vm = $controller('Contact', {
+                $scope: scope,
+                dataservice : mockService
             });
         });
     });
     describe('Controller: ', function () {
         it('should have a controller', function () {
-            expect(contact).toBeDefined();
+            expect(vm).toBeDefined();
         });
+
         it('should have a title', function () {
-            expect(contact.title).toBeDefined();
+            expect(vm.title).toBeDefined();
         });
+
         it('should say title is Contact Us', function () {
-            expect(contact.title).toBe('Contact Us');
+            expect(vm.title).toBe('Contact Us');
+        });
+
+        describe('send email', function () {
+            it('should have a sendEmail function', function () {
+                expect(vm.sendEmail).toBeDefined();
+            });
+
+            it('should have placeholder for the response',  function () {
+                expect(vm.response).toBeDefined();
+            });
+
+            it('should be empty if the services is not called',  function () {
+                expect(vm.response).toBe(false);
+            });
+
+            it('should call send email from dataservice', function () {
+                spyOn(mockService, 'sendEmail').and.callThrough();
+                vm.sendEmail();
+
+                expect(mockService.sendEmail).toHaveBeenCalled();
+            });
+
+            it('should say when the message is sent', function () {
+                spyOn(mockService, 'sendEmail').and.callThrough();
+
+                expect(vm.response).toBeFalsy();
+
+                vm.sendEmail().then(function() {
+                    expect(vm.response).toBeTruthy();
+                });
+            });
+
+
         });
     });
 });

@@ -4,20 +4,18 @@ footer {
     height: 5rem;
     bottom: -65%;
     z-index: 10;
+    .respond-min(600px, {
+        height: 7rem;
+    });
     
     .open &{
         bottom: 0;
-    }
-    @media screen and (max-height: 500px) {
-    .open &{
-            bottom: -65%;
-        }
     }
 }
 
 /*menu botom*/
 .plenty-menu {
-    width:100%;    
+    width:100%;
     .menu-bottom {
         bottom: -65%;
         width: 100%;
@@ -94,9 +92,3 @@ footer {
     z-index: -1;
     opacity: 0;
 }
-
-
-
-
-
-

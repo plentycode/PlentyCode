@@ -76,7 +76,7 @@
                 color: #fff
             }
         }
-    }   
+    }
 
 }
 
@@ -113,81 +113,72 @@
 .plenty-form {
      margin: 5% 2%;
      min-height: 450px;
+
+     .fields {
+         margin-bottom: 5%;
+
+         label {
+            display: block;
+            font-size: .9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer
+        }
+        input, textarea {
+            border: 1px solid #fff
+        }
+        input, select, textarea {
+            line-height: 1.5;
+            font-size: 1em;
+            padding: 5px 10px;
+            color: #fff;
+            display: block;
+            width: 100%;
+            background: 0 0;
+
+            &:focus, &:active {
+                outline: 0;
+                background: rgba(19, 120, 190, .2);
+            }
+
+        }
+     }
+
+     .form-message {
+         float: left;
+         width: 70%;
+         text-align: left;
+
+         &.error {
+             color: #BF2638;
+         }
+     }
+
+     .fields-bottom {
+         text-align: right;
+         width: 100%;
+     }
+
+     .submit-info {
+         background: rgba(19, 120, 190, 0);
+         border: 1px solid rgba(255, 255, 255, 1);
+         color: #fff;
+         width: auto;
+         cursor: pointer;
+         text-transform: uppercase;
+         display: inline-block;
+         padding: 15px 30px;
+         font-size: 1.1em;
+         border-radius: 2px;
+         letter-spacing: 1px;
+
+         &:focus, &:hover {
+             border-color: rgba(255, 255, 255, .3);
+         }
+     }
+
 }
 
-.plenty-form .fields {
-    margin-bottom: 5%;
-}
-
-.plenty-form label {
-    display: block;
-    font-size: .9em;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer
-}
-
-.plenty-form input,
-.plenty-form textarea {
-    border: 1px solid #fff
-}
-
-.plenty-form input,
-.plenty-form select,
-.plenty-form textarea {
-    line-height: 1.5;
-    font-size: 1em;
-    padding: 5px 10px;
-    color: #fff;
-    display: block;
-    width: 100%;
-    background: 0 0;
-    font-family: Lato, sans-serif
-}
-
-.plenty-form input:focus,
-.plenty-form textarea:focus {
-    background: rgba(19, 120, 190, .2)
-}
-
-.plenty-form input.error,
-.plenty-form textarea.error {
-    border-color: rgba(191, 38, 56, .5)
-}
-
-.form-message {
-    float: left;
-    width: 75%;
-    text-align: left
-}
-
-.form-message.failed {
-    color: #BF2638
-}
-
-.fields-bottom {
-    text-align: right;
-    width: 100%
-}
-
-.plenty-form .submit-info {
-    background: rgba(19, 120, 190, 0);
-    border: 1px solid rgba(255, 255, 255, 1);
-    color: #fff;
-    width: auto;
-    cursor: pointer;
-    text-transform: uppercase;
-    display: inline-block;
-    padding: 15px 30px;
-    font-size: 1.1em;
-    border-radius: 2px;
-    letter-spacing: 1px
-}
-
-.plenty-form .submit-info:focus,
-.plenty-form .submit-info:hover {
-    border-color: rgba(255, 255, 255, .3)
-}
 
 .plenty-form input:focus,
 .plenty-form label:active+input,
@@ -220,23 +211,26 @@
 
 .centered-info {
     text-align: center;
-    top: 10%;
-    position: absolute;
-        
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     .centered-box {
-          width: 32%;
-          text-align: center;
-          display: inline-block;
-          margin-bottom: 10%;
-          h4 {
-                font-size: 1em;
-            }
+        width: 32%;
+        text-align: center;
+        display: inline-block;
+        margin-bottom: 10%;
+        h4 {
+            font-size: 1em;
+        }
     }
+
     h1 {
       line-height: 1;
       font-size: 2.4em;
       font-weight: 300;
    }
+   
     .centered-icons {
         bottom: -10%;
         margin-top: 10%;
