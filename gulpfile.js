@@ -116,6 +116,9 @@ gulp.task('views', function () {
     gulp.src('./app/index.html')
         .pipe(gulp.dest('release/'));
 
+    gulp.src('./app/sitemap.xml')
+            .pipe(gulp.dest('release/'));
+
     // Any other view files from /views
     gulp.src('./app/modules/**/*.html')
         .pipe(gulp.dest('release/views/'));

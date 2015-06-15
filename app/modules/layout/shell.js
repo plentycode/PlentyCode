@@ -8,11 +8,12 @@
         var shell = this;
         shell.expandedView = false;
         shell.toggleView = toggleView;
-        
+        shell.status = 'ready';
+
          $scope.$on('TOGGLE_VIEW', shell.toggleView);
 
         function toggleView() {
             shell.expandedView = !shell.expandedView;
         }
-    }    
+    }
 }());
