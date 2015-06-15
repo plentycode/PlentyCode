@@ -16,7 +16,7 @@
         </div>
         <div class="fields-bottom">
             <div ng-if="vm.loading" class="loading"></div>
-            <div ng-show="vm.response" class="form-message" ng-class ="{'error': !vm.response.success}">{{vm.response.message}}</div>
+            <div ng-show="vm.response" class="form-message">{{vm.response.message}}</div>
             <button type="submit" class="submit-info" ng-disabled="vm.loading">Send</button>
         </div>
     </form>

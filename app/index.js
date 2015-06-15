@@ -1,6 +1,8 @@
 require('angular');
 require('angular-animate');
 require('angular-ui-router');
+require('angulartics');
+require('angulartics/src/angulartics-ga');
 
 (function () {
     'use strict';
