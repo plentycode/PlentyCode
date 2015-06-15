@@ -13,12 +13,12 @@
 			function sendEmail () {
 				vm.loading = true;
 				return dataservice.sendEmail(vm.contact)
-					.success(function (response) {
+					.then(function (response) {
 						vm.response = response;
 						vm.loading = false;
 						vm.contact = {};
 
-					}).error(function (reasons) {
+					}, function (reasons) {
 						vm.response = reasons;
 						vm.loading = false;
 					});

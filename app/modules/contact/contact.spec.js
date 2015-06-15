@@ -18,7 +18,7 @@ describe('contact-us', function () {
 
         mockService.sendEmail = function () {
             deferred.resolve({});
-            return deferred;
+            return deferred.promise;
         };
 
         //injects angular scopes to the controller
@@ -68,12 +68,24 @@ describe('contact-us', function () {
 
                 expect(vm.response).toBeFalsy();
 
-                vm.sendEmail().then(function() {
+                vm.sendEmail().then(function(res) {
                     expect(vm.response).toBeTruthy();
+                    expect(vm.response.success).toBeTruthy();
                 });
             });
 
+            it('should return an error when the request fails', function () {
+                spyOn(mockService, 'sendEmail').and.callFake(function () {
+                     deferred.reject({success : false, message : 'error'});
+                    return deferred.promise;
+                });
 
+                expect(vm.response).toBeFalsy();
+
+                vm.sendEmail().catch(function(err) {
+                    expect(err).toBeFalsy();
+                });
+            });
         });
     });
 });
