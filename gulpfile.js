@@ -71,12 +71,6 @@ gulp.task('js', function () {
         }))
             .pipe($.sourcemaps.write('./'))
             .pipe(gulp.dest('./release/js/'))
-            .pipe($.notify({
-                onLast: true,
-                message: function () {
-                    return 'built js correctly!';
-                }
-            }))
             .on('error', swallowError);
     };
 
@@ -125,12 +119,6 @@ gulp.task('views', function () {
 });
 
 function swallowError(error) {
-    $.notify({
-        onLast: true,
-        message: function () {
-            return 'error trying to build';
-        }
-    });
     //If you want details of the error in the console
     console.log(error.toString());
     this.emit('end');
