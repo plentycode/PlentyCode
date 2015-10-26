@@ -1,6 +1,9 @@
 {
   "name": "PlentyCode-Splash",
   "version": "2.0.1",
+  "engines": {
+   "node": "0.10.35"
+ },
   "description": "Splash page for plentycode.com site",
   "main": "server.js",
   "private": true,
